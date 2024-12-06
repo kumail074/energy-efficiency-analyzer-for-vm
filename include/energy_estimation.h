@@ -1,0 +1,1 @@
+/*** declarations for energy estimation ***/
