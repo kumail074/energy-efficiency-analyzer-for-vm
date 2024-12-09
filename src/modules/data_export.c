@@ -5,3 +5,8 @@
 int export_data_to_csv(const char *file_path, const struct AnalysisData *data);
 int export_data_to_json(const char *file_path, const struct AnalysisData *data);
 
+typedef struct {
+	char vm_name[64];
+	double energy_consumed;
+	int monitoring_duration;
+} AnalysisData;
