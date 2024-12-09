@@ -28,12 +28,12 @@
 #include "resource_monitor.h"
 #include "utils.h"
 
-typedef struct {
+/*typedef struct {
 	char config_file[256];
 	char lof_file[256];
 	char output_file[256];
 	int monitoring_interval;
-} Config;
+} Config; */ 
 
 void parse_arguments(int argc, char *argv[], Config *config) {
 	strcpy(config->config_file, "config.cfg");
@@ -63,7 +63,7 @@ void parse_arguments(int argc, char *argv[], Config *config) {
 	}
 }
 
-void init(Config **config) {
+void init(Config *config) {
 	if(init_logger(config->log_file) != 0) {
 		fprintf(stderr, "Failed to initialize logger.\n");
 		exit(EXIT_FAILURE);
@@ -88,7 +88,7 @@ void run_monitoring(Config *config) {
 	log_message("INFO", "Starting monitoring process...");
 
 	while(1) {
-		struct ResourceData resource_data = get_resource_usage("your vm");
+		ResourceData resource_data = get_resource_usage("your vm");
 		double estimated_energy = estimated_energy_usage(&resource_data);
 
 		char log_msg[256];

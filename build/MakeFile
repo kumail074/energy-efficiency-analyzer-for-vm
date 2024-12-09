@@ -1,0 +1,25 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -02 -g
+
+TARGET = vm_energy_analyzer
+
+SRCS = main.c energy_monitor.c energy_estimation.c config_parser.c \
+	resource_monitor.c logger.c data_export.c utils.c
+OBJS = $(SRCS:.c=.o)
+
+INCLUDES = -I
+
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET)
+
+%.o: %.c
+    $(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+clean:
+    rm -f $(OBJS) $(TARGET)
+
+rebuild: clean all
+
+.PHONY: all clean rebuild

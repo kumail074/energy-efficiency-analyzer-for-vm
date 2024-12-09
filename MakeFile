@@ -1,0 +1,36 @@
+# Compiler and flags
+CC = gcc
+CFLAGS = -Wall -Wextra -O2 -g
+
+# Target executable
+TARGET = vm_energy_analyzer
+
+# Source files and object files
+SRCS = src/main.c src/modules/energy_monitor.c src/modules/energy_estimation.c src/modules/config_parser.c \
+       src/modules/resource_monitor.c src/modules/logger.c src/modules/data_export.c src/modules/utils.c
+OBJS = $(SRCS:.c=.o)
+
+# Include header files directory
+INCLUDES = -Iinclude
+
+# Default target
+all: $(TARGET)
+
+# Rule to build the target executable
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET)
+
+# Rule to build object files
+%.o: %.c
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+# Rule to clean build artifacts
+clean:
+	rm -f $(OBJS) $(TARGET)
+
+# Rule to rebuild the project
+rebuild: clean all
+
+# Phony targets
+.PHONY: all clean rebuild
+

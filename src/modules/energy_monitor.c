@@ -6,6 +6,9 @@
 #include <string.h>
 #include <fcntl.h>
 
+#include "energy_monitor.h"
+
+
 #define ENERGY_FILE "/sys/class/powercap/intel-rapl:0/energy_uj"
 
 static int energy_fd = -1;

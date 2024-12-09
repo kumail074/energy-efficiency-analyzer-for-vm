@@ -7,7 +7,7 @@
 typedef struct {
     double cpu_power;
     double mem_power;
-    doub;e io_power;
+    double io_power;
 } EnergyModel;
 
 static EnergyModel energy_model = {1.5, 0.8, 0.5};
