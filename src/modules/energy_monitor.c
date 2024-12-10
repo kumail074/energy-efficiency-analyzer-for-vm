@@ -5,8 +5,9 @@
 #include <unistd.h>
 #include <string.h>
 #include <fcntl.h>
+//#include <errno.h>
 
-#include "energy_monitor.h"
+#include "../../include/energy_monitor.h"
 
 
 #define ENERGY_FILE "/sys/class/powercap/intel-rapl:0/energy_uj"
@@ -18,7 +19,7 @@ double get_energy_consumption(void);
 void close_energy_monitor(void);
 
 int initialize_energy_monitor(void) {
-    energy_fd = open(ENERGY_FILE. O_RDONLY);
+    energy_fd = open(ENERGY_FILE, O_RDONLY);
     if(energy_fd < 0) {
         perror("Failed to open energy monitoring file");
         return -1;

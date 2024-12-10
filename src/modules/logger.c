@@ -4,13 +4,9 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <time.h>
-#include "logger.h"
+#include "../../include/logger.h"
 
 static FILE *log_file_ptr = NULL;
-
-int init_logger(const char *log_file);
-void log_message(const char *level, const char *message);
-void close_logger(void);
 
 int init_logger(const char *log_file) {
     if(!log_file) {
@@ -24,7 +20,7 @@ int init_logger(const char *log_file) {
     return 0;
 }
 
-void log_message(const char *level, const, char *message, ...) {
+void log_message(const char *level, const char *message, ...) {
     if(!log_file_ptr) {
         fprintf(stderr, "Logger not initialized.\n");
         return;
@@ -47,7 +43,7 @@ void log_message(const char *level, const, char *message, ...) {
 
 void close_logger(void) {
     if(log_file_ptr) {
-        log("INFO", "Logger shutting down.");
+        log_message("INFO", "Logger shutting down.");
         fclose(log_file_ptr);
         log_file_ptr = NULL;
     }

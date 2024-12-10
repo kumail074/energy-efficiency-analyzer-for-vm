@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "config_parser.h"
+#include "../../include/config_parser.h"
 #include "main.h"
 
 int parse_config(const char *config_file, Config *config);

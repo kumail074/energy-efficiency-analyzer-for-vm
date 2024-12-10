@@ -4,10 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-#include "utils.h"
-
-char *get_current_timestamp(void);
-void handle_error(const char *message);
+#include "../../include/utils.h"
 
 char *get_current_timestamp(void) {
     static char timestamp[20];

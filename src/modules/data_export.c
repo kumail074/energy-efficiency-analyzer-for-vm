@@ -3,13 +3,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "data_export.h"
+#include "../../include/data_export.h"
 
-typedef struct {
+/*typedef struct {
 	char vm_name[64];
 	double energy_consumed;
 	int monitoring_duration;
-} AnalysisData;
+} AnalysisData; */
 
 int export_data_to_csv(const char *file_path, const AnalysisData *data) { 
     if(!file_path || !data) {
@@ -27,7 +27,7 @@ int export_data_to_csv(const char *file_path, const AnalysisData *data) {
 
     for(int i = 0; i < data->count; ++i) {
         fprintf(file, "%s,%.2f,%.2f,%.2f,%.2f\n",
-                data->entries[i].Timestamp,
+                data->entries[i].timestamp,
                 data->entries[i].cpu_usage,
                 data->entries[i].memory_usage,
                 data->entries[i].disk_usage,

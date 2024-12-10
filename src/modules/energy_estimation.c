@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "resource_monitor.h"
+#include "../../include/resource_monitor.h"
 
 typedef struct {
     double cpu_power;
@@ -12,15 +12,15 @@ typedef struct {
 
 static EnergyModel energy_model = {1.5, 0.8, 0.5};
 
-double estimate_energy_usage(const struct ResourceData *data);
+double estimate_energy_usage(const ResourceData *data);
 void set_energy_model_parameters(double *params);
 
-double estimate_energy_usage(const struct ResourceData *data) {
+double estimate_energy_usage(const ResourceData *data) {
     if(!data) {
         fprintf(stderr, "Resource data is NULL.\n");
         return -1.0;
     }
-    double energy = (data->cpu_usage * energy_model.cpu_power) + (data->memory_usage * energy_model.mem_power) + (data->io_usage * energy_model.io_power);
+    double energy = (data->cpu_usage * energy_model.cpu_power) + (data->memory_usage * energy_model.mem_power) + (data->cpu_usage * energy_model.io_power);
 
     return energy;
 }

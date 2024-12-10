@@ -1,0 +1,12 @@
+energy_monitor.h -> none
+
+energy_estimation.h -> none
+
+config_parser.h -> none
+
+data_export.h -> DataEntry
+		 AnalysisData(with one DataEntry object)
+
+resource_monitor.h -> ResourceData
+
+

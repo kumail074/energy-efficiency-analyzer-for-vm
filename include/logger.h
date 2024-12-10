@@ -4,7 +4,7 @@
 #define LOGGER_H
 
 int init_logger(const char *log_file);
-void log_message(const char *level, const char *message);
+void log_message(const char *level, const char *message, ...);
 void close_logger(void);
 
 #endif

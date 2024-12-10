@@ -3,11 +3,13 @@
 #ifndef RESOURCE_MONITOR_H
 #define RESOURCE_MONITOR_H
 
-/*typedef struct {
-    double cpu_usage;
-    double memory_usage;
-    double disk_usage;
-} ResourceData; */
+typedef struct {
+    char vm_name[64];
+    int cpu_usage;
+    int memory_usage;
+    long disk_io;
+    long network_io;
+} ResourceData; 
 
 int init_resource_monitor(void);
 ResourceData get_resource_usage(const char *vm_name);

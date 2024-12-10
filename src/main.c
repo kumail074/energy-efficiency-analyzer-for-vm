@@ -20,20 +20,21 @@
 #include <ctype.h>
 #include <getopt.h>
 
-#include "energy_monitor.h"
-#include "energy_estimation.h"
-#include "config_parser.h"
-#include "data_export.h"
-#include "logger.h"
-#include "resource_monitor.h"
-#include "utils.h"
+#include "../include/energy_monitor.h"
+#include "../include/energy_estimation.h"
+#include "../include/config_parser.h"
+#include "../include/data_export.h"
+#include "../include/logger.h"
+#include "../include/resource_monitor.h"
+#include "../include/utils.h"
 
 /*typedef struct {
+    //char vm_name[256];
 	char config_file[256];
 	char lof_file[256];
 	char output_file[256];
 	int monitoring_interval;
-} Config; */ 
+} Config; */
 
 void parse_arguments(int argc, char *argv[], Config *config) {
 	strcpy(config->config_file, "config.cfg");
@@ -84,12 +85,12 @@ void init(Config *config) {
 	}
 }
 
-void run_monitoring(Config *config) {
+/*void run_monitoring(Config *config) {
 	log_message("INFO", "Starting monitoring process...");
 
 	while(1) {
 		ResourceData resource_data = get_resource_usage("your vm");
-		double estimated_energy = estimated_energy_usage(&resource_data);
+		double estimated_energy = estimate_energy_usage(&resource_data);
 
 		char log_msg[256];
 		snprintf(log_msg, sizeof(log_msg), "Estimated Energy Consumption: %.6f Joules", estimated_energy);
@@ -97,6 +98,39 @@ void run_monitoring(Config *config) {
 		export_data_to_json(config->output_file, &resource_data);
 		sleep(config->monitoring_interval);
 	}
+}*/
+
+void run_monitoring(Config *config) {
+    log_message("INFO", "Starting monitoring process...");
+    AnalysisData analysis_data;
+    analysis_data.count = 0;
+    while(1) {
+        ResourceData resource_data = get_resource_usage(config->vm_name);
+        double estimated_energy = estimate_energy_usage(&resource_data);
+
+        DataEntry entry;
+        snprintf(entry.timestamp, sizeof(entry.timestamp), "%s", get_current_timestamp());
+        entry.cpu_usage = (double)resource_data.cpu_usage;
+        entry.memory_usage = (double)resource_data.memory_usage;
+        entry.disk_usage = (double)resource_data.disk_io;
+        entry.energy_consumption = estimated_energy;
+
+        if(analysis_data.count < 100) {
+            analysis_data.entries[analysis_data.count] = entry;
+            analysis_data.count++;
+        } else {
+            log_message("WARNING", "AnalysisData array is full. Cannot add more entries.\n");
+        }
+
+        char log_msg[256];
+        snprintf(log_msg, sizeof(log_msg), "VM: %s, Estimated Energy Consumption: %.6f Joules", config->vm_name, estimated_energy);
+        log_message("INFO", log_msg);
+
+        export_data_to_csv(config->output_file, &analysis_data);
+        export_data_to_json(config->output_file, &analysis_data);
+
+        sleep(config->monitoring_interval);
+    }
 }
 
 
