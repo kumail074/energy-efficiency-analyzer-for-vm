@@ -28,7 +28,7 @@ void log_message(const char *level, const char *message, ...) {
     time_t now = time(NULL);
     struct tm *local_time = localtime(&now);
     char timestamp[20];
-    strftime(timestamp, sizeof(timestampe), "%Y-%m-%d %H:%M:%S", local_time);
+    strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", local_time);
 
    fprintf(log_file_ptr, "[%s] [%s] ", timestamp, level);
 

@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../../include/config_parser.h"
-#include "main.h"
+#include "../../include/main.h"
 
 int parse_config(const char *config_file, Config *config);
 void print_config(const char *config_file, Config *config);
@@ -46,7 +46,7 @@ int parse_config(const char *config_file, Config *config) {
     return 0;
 }
 
-void print_config(const Config *config) {
+void print_config(const char *config_file, Config *config) {
     if(!config) {
         fprintf(stderr, "Invalid Config pointer.\n");
         return;

@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <fcntl.h>
+
 #include "../../include/data_export.h"
 
 /*typedef struct {
@@ -43,7 +45,7 @@ int export_data_to_json(const char *file_path, const AnalysisData *data) {
         return -1;
     }
 
-    FILE *file = open(file_path, "w");
+    FILE *file = fopen(file_path, "w");
     if(!file) {
         perror("Failed to open JSON file");
         return -1;
@@ -62,6 +64,6 @@ int export_data_to_json(const char *file_path, const AnalysisData *data) {
     }
 
     fprintf(file, "]\n}\n");
-    flcose(file);
+    fclose(file);
     return 0;
 }
